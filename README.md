@@ -29,9 +29,15 @@ That's the command I used with my Kubernetes cluster. First you of course have t
 ```
 should yield:
 ```
-Bye     2
-Hadoop  2
-Hello   2
-World   2
+bye     1
+goodbye 1
+hadoop  2
+hello   2
+world   2
 ```
 7) Have fun! Kotlin I feel is much better language than Java but keep in mind that most of the material in internet is probably in Java so you're going to either rewrite it or use IDEA's built-in capabilities to transform it into Kotlin.
+
+## Helper scripts
+
+* `./create-test-data.sh` will generate `/input` folder to the HDFS drive inside Kubernetes
+* `./run-on-k8s.sh <?build>` will copy the built JAR-file and execute it inside the Hadoop-cluster. You can provide an optional build parameter: `./run-on-k8s.sh build` that will also build the JAR-file.
