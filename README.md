@@ -22,7 +22,8 @@ echo Hello Hadoop Goodbye Hadoop > input/file02
 /usr/local/hadoop/bin/hadoop fs -put input / # Put the data into the HDFS drive
 /usr/local/hadoop/bin/hadoop jar kotlin-hello-big-data-all-1.0-SNAPSHOT.jar 1 /input /output
 ```
-That's the command I used with my Kubernetes cluster. First you of course have to copy the JAR and then exec into the container.  
+That's the command I used with my Kubernetes cluster. First you of course have to copy the JAR and then exec into the container.
+
 6) If all went well running
 ```bash
 /usr/local/hadoop/bin/hadoop fs -cat /output/part-r-00000
