@@ -1,4 +1,4 @@
-#!/bin/bash -e
+#!/bin/bash -xe
 
 POD_NAME=$(kubectl get pods | grep yarn-nm | awk '{print $1}')
 
