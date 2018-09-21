@@ -1,6 +1,6 @@
 # Hadoop WordCount with Kotlin
 
-Okey so this is directly copied from here https://github.com/gmariotti/intro-big-data/tree/master/01_hello-big-data. Big thanks to Guido Pio Mariotti who has much more material and explanations in his blog https://thegmariottiblog.blogspot.com/2017/02/hello-blog-world-learning-big-data-with.html
+Okey so this is directly copied from here https://github.com/gmariotti/intro-big-data/tree/master/01_hello-big-data. Big thanks to Guido Pio Mariotti who has much more material and explanations in his blog https://thegmariottiblog.blogspot.com/2017/02/hello-blog-world-learning-big-data-with.html.
 
 ## How to run this
 
@@ -24,7 +24,7 @@ echo Hello Hadoop Goodbye Hadoop > input/file02
 ```
 That's the command I used with my Kubernetes cluster. First you of course have to copy the JAR and then exec into the container.  
 6) If all went well running
-```
+```bash
 /usr/local/hadoop/bin/hadoop fs -cat /output/part-r-00000
 ```
 should yield:

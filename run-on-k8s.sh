@@ -14,8 +14,8 @@ TIMESTAMP=$(date +"%H_%M_%S__%d_%m_%Y")
 
 kubectl exec -it "${POD_NAME}" bash <<EOF
 cd /home
-hadoop jar kotlin-hello-big-data-all-1.0-SNAPSHOT.jar 1 /input /$TIMESTAMP
+hadoop jar kotlin-hello-big-data-all-1.0-SNAPSHOT.jar 1 /input /$TIMESTAMP-output
 echo "Results:"
 echo ""
-hadoop fs -cat /$TIMESTAMP/part-r-00000
+hadoop fs -cat /$TIMESTAMP-output/part-r-00000
 EOF
