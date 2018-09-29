@@ -1,4 +1,4 @@
-package main
+package `word-count`
 
 import extensions.*
 import org.apache.hadoop.conf.Configured
