@@ -39,6 +39,17 @@ class StudentScoreWritable : WritableComparable<StudentScoreWritable> {
         return this.year != 0
     }
 
+    fun merge(ssw: StudentScoreWritable) {
+        if (this.isStudent()) {
+            this.score1 = ssw.score1
+            this.score2 = ssw.score2
+            this.score3 = ssw.score3
+        } else {
+            this.name = ssw.name
+            this.year = ssw.year
+        }
+    }
+
     @Throws(IOException::class)
     override fun readFields(`in`: DataInput) {
         name = WritableUtils.readString(`in`);

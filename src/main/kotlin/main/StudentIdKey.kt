@@ -23,15 +23,12 @@ class StudentIdKey : WritableComparable<StudentIdKey> {
         this.type = t
     }
 
+    /**
+     * Compares only the student-ids, this will group the same student-ids together
+     * so that reducers can then merge the scores and students together
+     */
     override fun compareTo(other: StudentIdKey): Int {
-        val idCompare = this.studentId.compareTo(other.studentId)
-        if (idCompare == 0) {
-            if (this.type ==  "student") {
-                return 1
-            }
-            return -1
-        }
-        return idCompare
+        return this.studentId.compareTo(other.studentId)
     }
 
     override fun readFields(`in`: DataInput?) {

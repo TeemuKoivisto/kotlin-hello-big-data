@@ -14,14 +14,12 @@ import org.apache.hadoop.mapreduce.Reducer
 class StudentScoreReducer : Reducer<StudentIdKey, StudentScoreWritable, LongWritable, Text>() {
 
     override fun reduce(key: StudentIdKey, values: Iterable<StudentScoreWritable>, context: Context) {
-//        if (values.count() == 2) {
-//            val student = if (values.first().isStudent()) values.first() else values.last()
-//            val score = if (!values.first().isStudent()) values.first() else values.last()
-//            val text = student.name + student.year + score.score1 + score.score2 + score.score3
-//            context.write(key, text.toText())
-//        }
-        for (ssw in values.toList()) {
-            context.write(LongWritable(key.studentId), ssw.toString().toText())
+        val iter = values.iterator()
+        val first = iter.next()
+        val merged = StudentScoreWritable(first.name, first.year, first.score1, first.score2, first.score3)
+        if (iter.hasNext()) {
+            merged.merge(iter.next())
+            context.write(LongWritable(key.studentId), merged.toString().toText())
         }
     }
 }
