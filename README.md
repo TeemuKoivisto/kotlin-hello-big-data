@@ -42,3 +42,9 @@ world   2
 
 * `./create-test-data.sh` will generate `/input` folder to the HDFS drive inside Kubernetes
 * `./run-on-k8s.sh <?build>` will copy the built JAR-file and execute it inside the Hadoop-cluster. You can provide an optional build parameter: `./run-on-k8s.sh build` that will also build the JAR-file.
+* `./run-student-score.sh <?build>` will run the StudentScore program. Remember to add the test-data first to the HDFS.
+* `./exec-k8s.sh` will open up bash session to the YARN namenode.
+
+## Other notes
+
+If Hadoop outputs only partial data note that if you have multiple reducers they will have their own outputs such as `part-r-00001`.

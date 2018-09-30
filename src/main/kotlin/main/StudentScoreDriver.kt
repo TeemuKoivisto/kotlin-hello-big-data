@@ -31,9 +31,9 @@ class StudentScoreDriver : Configured(), Tool {
             jobName = "Big Data - Hello World"
 
             addMultipleInputPath<TextInputFormat, ScoreMapper>(scorePath)
-            mapOutput<LongWritable, StudentScoreWritable>()
+            mapOutput<StudentIdKey, StudentScoreWritable>()
             addMultipleInputPath<TextInputFormat, StudentMapper>(studentPath)
-            mapOutput<LongWritable, StudentScoreWritable>()
+            mapOutput<StudentIdKey, StudentScoreWritable>()
 
             // Specifies the class of the Driver for this job
             setJarByClass<StudentScoreDriver>()

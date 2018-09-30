@@ -11,9 +11,9 @@ import org.apache.hadoop.mapreduce.Reducer
  * (20096468734, ["score: 90,80,40", "student:Testi9,1995"])
  * -> "20096468734,Testi9,1995,90,80,40"
  */
-class StudentScoreReducer : Reducer<LongWritable, StudentScoreWritable, LongWritable, Text>() {
+class StudentScoreReducer : Reducer<StudentIdKey, StudentScoreWritable, LongWritable, Text>() {
 
-    override fun reduce(key: LongWritable, values: Iterable<StudentScoreWritable>, context: Context) {
+    override fun reduce(key: StudentIdKey, values: Iterable<StudentScoreWritable>, context: Context) {
 //        if (values.count() == 2) {
 //            val student = if (values.first().isStudent()) values.first() else values.last()
 //            val score = if (!values.first().isStudent()) values.first() else values.last()
@@ -21,7 +21,7 @@ class StudentScoreReducer : Reducer<LongWritable, StudentScoreWritable, LongWrit
 //            context.write(key, text.toText())
 //        }
         for (ssw in values.toList()) {
-            context.write(key, ssw.toString().toText())
+            context.write(LongWritable(key.studentId), ssw.toString().toText())
         }
     }
 }

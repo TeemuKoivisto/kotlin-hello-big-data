@@ -1,12 +1,12 @@
 package main
 
-import org.apache.hadoop.io.Writable
+import org.apache.hadoop.io.WritableComparable
 import org.apache.hadoop.io.WritableUtils
 import java.io.DataInput
 import java.io.DataOutput
 import java.io.IOException
 
-class StudentScoreWritable : Writable {
+class StudentScoreWritable : WritableComparable<StudentScoreWritable> {
 
     internal var name = ""
     internal var year = 0
@@ -22,6 +22,14 @@ class StudentScoreWritable : Writable {
     }
 
     constructor(s1: Int, s2: Int, s3: Int) {
+        this.score1 = s1
+        this.score2 = s2
+        this.score3 = s3
+    }
+
+    constructor(n: String, y: Int, s1: Int, s2: Int, s3: Int) {
+        this.name = n
+        this.year = y
         this.score1 = s1
         this.score2 = s2
         this.score3 = s3
@@ -51,5 +59,12 @@ class StudentScoreWritable : Writable {
 
     override fun toString(): String {
         return this.name + "\t" + this.year + "\t" + this.score1.toString() + "\t" + this.score2 + "\t" + this.score3
+    }
+
+    override fun compareTo(ssw: StudentScoreWritable): Int {
+        if (this.name == ssw.name) {
+            return 0
+        }
+        return -1
     }
 }

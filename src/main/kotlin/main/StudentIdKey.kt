@@ -8,18 +8,17 @@ import java.io.DataInput
 import org.apache.hadoop.io.Writable
 import org.apache.hadoop.io.WritableComparable
 
-
 class StudentIdKey : WritableComparable<StudentIdKey> {
 
-    internal var studentId : LongWritable
+    internal var studentId : Long
     internal var type : String
 
     constructor() {
-        this.studentId = LongWritable(0)
+        this.studentId = 0
         this.type = "undefined"
     }
 
-    constructor(id : LongWritable, t : String) {
+    constructor(id : Long, t : String) {
         this.studentId = id
         this.type = t
     }
@@ -27,7 +26,7 @@ class StudentIdKey : WritableComparable<StudentIdKey> {
     override fun compareTo(other: StudentIdKey): Int {
         val idCompare = this.studentId.compareTo(other.studentId)
         if (idCompare == 0) {
-            if (this.type == "student") {
+            if (this.type ==  "student") {
                 return 1
             }
             return -1
@@ -36,13 +35,15 @@ class StudentIdKey : WritableComparable<StudentIdKey> {
     }
 
     override fun readFields(`in`: DataInput?) {
-        this.studentId.readFields(`in`)
-        this.type = WritableUtils.readString(`in`);
+//        this.studentId.readFields(`in`)
+        this.studentId = WritableUtils.readVLong(`in`)
+        this.type = WritableUtils.readString(`in`)
     }
 
     override fun write(out: DataOutput?) {
-        this.studentId.write(out)
-        WritableUtils.writeString(out, this.type)
+//        this.studentId.write(out)
+        WritableUtils.writeVLong(out, this.studentId.toLong())
+        WritableUtils.writeString(out, this.type.toString())
     }
 
     override fun toString() : String {
