@@ -10,6 +10,7 @@ import org.apache.hadoop.mapreduce.Job
 import org.apache.hadoop.mapreduce.lib.input.TextInputFormat
 import org.apache.hadoop.mapreduce.lib.output.TextOutputFormat
 import org.apache.hadoop.util.Tool
+import java.net.URI
 
 /**
  * Hello World for Big Data with Hadoop
@@ -30,8 +31,10 @@ class StudentScoreDriver : Configured(), Tool {
         with(Job.getInstance(this.conf)) {
             jobName = "Big Data - Hello World"
 
-            addMultipleInputPath<TextInputFormat, ScoreMapper>(scorePath)
-            mapOutput<StudentIdKey, StudentScoreWritable>()
+            // Use distributed cache with scores
+            addCacheFile(scorePath.toUri())
+           // addMultipleInputPath<TextInputFormat, ScoreMapper>(scorePath)
+           // mapOutput<StudentIdKey, StudentScoreWritable>()
             addMultipleInputPath<TextInputFormat, StudentMapper>(studentPath)
             mapOutput<StudentIdKey, StudentScoreWritable>()
 
@@ -40,11 +43,11 @@ class StudentScoreDriver : Configured(), Tool {
 
             // Specifies the job's format for input and output
             setInputFormatClass<TextInputFormat>()
-//            setOutputFormatClass<TextOutputFormat<Text, IntWritable>>()
-//            setOutputFormatClass<TextOutputFormat<LongWritable, Text>>()
+//                setOutputFormatClass<TextOutputFormat<Text, IntWritable>>()
+//                setOutputFormatClass<TextOutputFormat<LongWritable, Text>>()
 
             // Specifies the reducer class and its key:value output
-            setReducerClass<StudentScoreReducer>(numReducers)
+            setReducerClass<StudentScoreReducerCached>(numReducers)
 //            reducerOutput<Text, IntWritable>()
             setOutputFormatClass<TextOutputFormat<LongWritable, Text>>()
 

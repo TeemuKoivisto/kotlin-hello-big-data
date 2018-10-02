@@ -50,6 +50,14 @@ class StudentScoreWritable : WritableComparable<StudentScoreWritable> {
         }
     }
 
+    fun addScores(scores: Array<Int>) {
+        if (scores.size == 3) {
+            this.score1 = scores[0]
+            this.score2 = scores[1]
+            this.score3 = scores[2]
+        }
+    }
+
     @Throws(IOException::class)
     override fun readFields(`in`: DataInput) {
         name = WritableUtils.readString(`in`);
